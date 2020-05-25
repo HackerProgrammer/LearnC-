@@ -1,1 +1,69 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int maxminPrice()
+{
+   ifstream dataFile;
+   dataFile.open("kaGolPrice.txt");
+   const int N = 1100,M=2;
+   float priceDate[N][M],x,max=0,min=10000,AveragePrice=0 ;
+   int i = 0,cnt,dateMax,dateMin;
+   if (dataFile.fail())
+   {
+      cout << "Could not open input file kaGolPrice.txt";
+      dataFile.close();
+      exit(1);
+   }
+   while (dataFile >> x && i<N)
+   {
+      priceDate[i][0] = x;
+      i++;
+   }
+   dataFile.close();
+   dataFile.open("kaGolDate.txt");
+   i=0;
+   if (dataFile.fail())
+   {
+      cout << "Could not open input file kaGolDate.txt";
+      dataFile.close();
+      exit(1);
+   }
+   while (dataFile >> x && i<N)
+   {
+      priceDate[i][1] = x;
+      i++;
+   }
+   cnt = i;
+   for(i=0; i<cnt; i++)
+   {
+       if(priceDate[i][0]>max)
+       {
+          max=priceDate[i][0];
+          dateMax=priceDate[i][1];
+       }
+
+       if(priceDate[i][0]<min)
+           {
+            min=priceDate[i][0];
+            dateMin=priceDate[i][1];
+           }
+
+   AveragePrice+=priceDate[i][0];
+   cout<<priceDate[i][0]<< " ";
+   }
+   AveragePrice/=cnt;
+   cout << endl<<endl << "Number of data:" << cnt << endl;
+   cout<<endl<<"max number is:"<<max<<endl;
+   cout<<endl<<"dateMax number is:"<<dateMax<<endl;
+   cout<<endl<<"min number is :"<<min<<endl;
+   cout<<endl<<"dateMin number is :"<<dateMin<<endl;
+   cout<<endl<<"AveragePrice is :"<<AveragePrice<<endl;
+}
+
+int main()
+{
+maxminPrice();
+return 0;
+}
 
